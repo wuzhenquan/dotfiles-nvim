@@ -1,3 +1,5 @@
+local capabilities = require('lsp.capabilities')
+
 vim.lsp.config('lua_ls', {
   settings = {
     Lua = {
@@ -12,4 +14,5 @@ vim.lsp.config('lua_ls', {
       },
     },
   },
+  capabilities = capabilities,
 })
