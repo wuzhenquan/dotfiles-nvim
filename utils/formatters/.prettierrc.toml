@@ -1,0 +1,26 @@
+# 1. Maximum line length (Industry standard is usually 80 or 100)
+printWidth = 100
+
+# 2. Indentation (2 spaces is standard for JS/Web; 4 is common for Python/C++)
+tabWidth = 2
+useTabs = false
+
+# 3. Quotes (Single quotes are preferred in JS/TS community)
+singleQuote = true
+jsxSingleQuote = true
+
+# 4. Semicolons (Standard is 'true', but 'false' is popular in modern React/Vue)
+semi = true  # Change to 'false' if you prefer cleaner, semicolon-free code
+
+# 5. Trailing Commas (Makes git diffs cleaner)
+trailingComma = "es5"
+
+# 6. Object Spacing ( { foo: bar } instead of {foo:bar} )
+bracketSpacing = true
+
+# 7. Arrow Function Parentheses ( (x) => x instead of x => x )
+arrowParens = "always"
+
+# 8. End of Line (Ensure consistency across Windows/Mac/Linux)
+endOfLine = "lf"
+
