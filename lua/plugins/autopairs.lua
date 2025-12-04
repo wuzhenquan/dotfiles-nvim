@@ -1,10 +1,10 @@
 return {
   {
-    'windwp/nvim-autopairs',
+    "windwp/nvim-autopairs",
     event = "InsertEnter",
     opts = {
       fast_wrap = {
-        map = "<M-e>",  -- Alt+e to trigger fast wrap in Insert mode
+        map = "<M-e>", -- Alt+e to trigger fast wrap in Insert mode
         chars = { "{", "[", "(", '"', "'" },
         pattern = [=[[%'%"%>%]%)%}%,]]=],
         end_key = "$",
@@ -12,9 +12,9 @@ return {
         check_comma = true,
         highlight = "Search",
         highlight_grey = "Comment",
-      }
-    }
-  }
+      },
+    },
+  },
 }
 --[[
 (foobar
