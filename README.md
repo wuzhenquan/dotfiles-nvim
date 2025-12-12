@@ -1,6 +1,5 @@
 - 📦 Requirements
   - Neovim 0.11.3
-  - A Nerd Font (for icons)
   - Node.js
 - 🧩 Plugins
   - lazy.nvim
@@ -17,3 +16,7 @@
   - autopairs
   - conform.nvim
 - 📜 My Articles
+
+## Installation
+
+## Disclaimer
