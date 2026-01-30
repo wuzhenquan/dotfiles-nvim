@@ -1,2 +1,4 @@
 std = "neovim"
 
+# [rule_checks]
+mixed_table = "allow"
