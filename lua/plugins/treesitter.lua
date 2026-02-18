@@ -27,7 +27,10 @@ return {
         },
         sync_install = false,
         highlight = { enable = true },
+        auto_install = true,
         indent = { enable = true },
+        ignore_install = {},
+        modules = {},
       })
     end,
   },
