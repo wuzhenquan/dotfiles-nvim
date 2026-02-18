@@ -17,6 +17,11 @@
   - conform.nvim
 - 📜 My Articles
 
-## Installation
+## how to Deploy it to macOS
+- `brew update` → `brew upgrade neovim`
+- `git clone git@github.com:wuzhenquan/dotfiles-nvim.git ~/.config/nvim`
+- `nvim`
+- `brew install tree-sitter` → `brew install tree-sitter-cli`
+- `brew install lazygit` → `lazygit --version`
 
 ## Disclaimer
