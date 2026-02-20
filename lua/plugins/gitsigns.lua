@@ -76,27 +76,44 @@ return {
         end
       end)
 
-      -- Actions
-      map("n", "hs", gitsigns.stage_hunk)
-      map("n", "hr", gitsigns.reset_hunk)
-      map("v", "hs", function() gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") }) end)
-      map("v", "hr", function() gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") }) end)
-      map("n", "hS", gitsigns.stage_buffer)
-      map("n", "hR", gitsigns.reset_buffer)
-      map("n", "hp", gitsigns.preview_hunk)
-      map("n", "hi", gitsigns.preview_hunk_inline)
-      map("n", "hb", function() gitsigns.blame_line({ full = true }) end)
-      map("n", "hd", gitsigns.diffthis)
-      map("n", "hD", function() gitsigns.diffthis("~") end)
-      map("n", "hQ", function() gitsigns.setqflist("all") end)
-      map("n", "hq", gitsigns.setqflist)
+      -- Normal + visual: stage/reset hunk
+      map("n", "<leader>gs", gitsigns.stage_hunk, { desc = "Git stage hunk" })
+      map(
+        "v",
+        "<leader>gs",
+        function() gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") }) end,
+        { desc = "Git stage hunk" }
+      )
 
-      -- Toggles
-      map("n", "tb", gitsigns.toggle_current_line_blame)
-      map("n", "tw", gitsigns.toggle_word_diff)
+      map("n", "<leader>gr", gitsigns.reset_hunk, { desc = "Git reset hunk" })
+      map(
+        "v",
+        "<leader>gr",
+        function() gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") }) end,
+        { desc = "Git reset hunk" }
+      )
 
-      -- Text object
-      map({ "o", "x" }, "ih", gitsigns.select_hunk)
+      -- Buffer-level
+      map("n", "<leader>gS", gitsigns.stage_buffer, { desc = "Git stage buffer" })
+      map("n", "<leader>gR", gitsigns.reset_buffer, { desc = "Git reset buffer" })
+
+      -- Preview / diff / blame
+      map("n", "<leader>gp", gitsigns.preview_hunk, { desc = "Git preview hunk" })
+      map("n", "<leader>gi", gitsigns.preview_hunk_inline, { desc = "Git preview hunk inline" })
+      map("n", "<leader>gb", function() gitsigns.blame_line({ full = true }) end, { desc = "Git blame line" })
+      map("n", "<leader>gd", gitsigns.diffthis, { desc = "Git diff this" })
+      map("n", "<leader>gD", function() gitsigns.diffthis("~") end, { desc = "Git diff this ~" })
+
+      -- Quickfix
+      map("n", "<leader>gQ", function() gitsigns.setqflist("all") end, { desc = "Git hunks to quickfix (all)" })
+      map("n", "<leader>gq", gitsigns.setqflist, { desc = "Git hunks to quickfix" })
+
+      -- Toggles (t-prefix is common in LazyVim)
+      map("n", "<leader>tb", gitsigns.toggle_current_line_blame, { desc = "Toggle git line blame" })
+      map("n", "<leader>tw", gitsigns.toggle_word_diff, { desc = "Toggle git word diff" })
+
+      -- Text object (this is fine as-is)
+      map({ "o", "x" }, "ih", gitsigns.select_hunk, { desc = "Git hunk textobject" })
     end,
   },
 }
