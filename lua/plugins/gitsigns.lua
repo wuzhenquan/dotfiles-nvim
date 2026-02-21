@@ -49,71 +49,45 @@ return {
       row = 0,
       col = 1,
     },
+    on_attach = function(buffer)
+      local gs = package.loaded.gitsigns
 
-    on_attach = function(bufnr)
-      local gitsigns = require("gitsigns")
-
-      local function map(mode, l, r, opts)
-        opts = opts or {}
-        opts.buffer = bufnr
-        vim.keymap.set(mode, l, r, opts)
-      end
+      local function map(mode, l, r, desc) vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc }) end
 
       -- Navigation
-      map("n", "]c", function()
+      map("n", "]h", function()
         if vim.wo.diff then
           vim.cmd.normal({ "]c", bang = true })
         else
-          gitsigns.nav_hunk("next")
+          gs.nav_hunk("next")
         end
-      end)
+      end, "Next Hunk")
 
-      map("n", "[c", function()
+      map("n", "[h", function()
         if vim.wo.diff then
           vim.cmd.normal({ "[c", bang = true })
         else
-          gitsigns.nav_hunk("prev")
+          gs.nav_hunk("prev")
         end
-      end)
+      end, "Prev Hunk")
 
-      -- Normal + visual: stage/reset hunk
-      map("n", "<leader>gs", gitsigns.stage_hunk, { desc = "Git stage hunk" })
-      map(
-        "v",
-        "<leader>gs",
-        function() gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") }) end,
-        { desc = "Git stage hunk" }
-      )
+      map("n", "]H", function() gs.nav_hunk("last") end, "Last Hunk")
+      map("n", "[H", function() gs.nav_hunk("first") end, "First Hunk")
 
-      map("n", "<leader>gr", gitsigns.reset_hunk, { desc = "Git reset hunk" })
-      map(
-        "v",
-        "<leader>gr",
-        function() gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") }) end,
-        { desc = "Git reset hunk" }
-      )
+      -- Hunk Actions (Prefix: <leader>gh)
+      map({ "n", "v" }, "<leader>ghs", ":Gitsigns stage_hunk<CR>", "Stage Hunk")
+      map({ "n", "v" }, "<leader>ghr", ":Gitsigns reset_hunk<CR>", "Reset Hunk")
+      map("n", "<leader>ghS", gs.stage_buffer, "Stage Buffer")
+      map("n", "<leader>ghu", gs.undo_stage_hunk, "Undo Stage Hunk")
+      map("n", "<leader>ghR", gs.reset_buffer, "Reset Buffer")
+      map("n", "<leader>ghp", gs.preview_hunk_inline, "Preview Hunk Inline")
+      map("n", "<leader>ghb", function() gs.blame_line({ full = true }) end, "Blame Line")
+      map("n", "<leader>ghB", function() gs.blame() end, "Blame Buffer")
+      map("n", "<leader>ghd", gs.diffthis, "Diff This")
+      map("n", "<leader>ghD", function() gs.diffthis("~") end, "Diff This ~")
 
-      -- Buffer-level
-      map("n", "<leader>gS", gitsigns.stage_buffer, { desc = "Git stage buffer" })
-      map("n", "<leader>gR", gitsigns.reset_buffer, { desc = "Git reset buffer" })
-
-      -- Preview / diff / blame
-      map("n", "<leader>gp", gitsigns.preview_hunk, { desc = "Git preview hunk" })
-      map("n", "<leader>gi", gitsigns.preview_hunk_inline, { desc = "Git preview hunk inline" })
-      map("n", "<leader>gb", function() gitsigns.blame_line({ full = true }) end, { desc = "Git blame line" })
-      map("n", "<leader>gd", gitsigns.diffthis, { desc = "Git diff this" })
-      map("n", "<leader>gD", function() gitsigns.diffthis("~") end, { desc = "Git diff this ~" })
-
-      -- Quickfix
-      map("n", "<leader>gQ", function() gitsigns.setqflist("all") end, { desc = "Git hunks to quickfix (all)" })
-      map("n", "<leader>gq", gitsigns.setqflist, { desc = "Git hunks to quickfix" })
-
-      -- Toggles (t-prefix is common in LazyVim)
-      map("n", "<leader>tb", gitsigns.toggle_current_line_blame, { desc = "Toggle git line blame" })
-      map("n", "<leader>tw", gitsigns.toggle_word_diff, { desc = "Toggle git word diff" })
-
-      -- Text object (this is fine as-is)
-      map({ "o", "x" }, "ih", gitsigns.select_hunk, { desc = "Git hunk textobject" })
+      -- Text object (Allows you to use operations on hunks like 'vih' or 'dah')
+      map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
     end,
   },
 }
