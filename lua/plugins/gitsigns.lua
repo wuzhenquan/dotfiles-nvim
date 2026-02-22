@@ -48,6 +48,7 @@ return {
       relative = "cursor",
       row = 0,
       col = 1,
+      border = "single", -- Options: 'none', 'single', 'double', 'rounded', 'solid', 'shadow'
     },
     on_attach = function(buffer)
       local gs = package.loaded.gitsigns
@@ -80,11 +81,19 @@ return {
       map("n", "<leader>ghS", gs.stage_buffer, "Stage Buffer")
       map("n", "<leader>ghu", gs.undo_stage_hunk, "Undo Stage Hunk")
       map("n", "<leader>ghR", gs.reset_buffer, "Reset Buffer")
-      map("n", "<leader>ghp", gs.preview_hunk_inline, "Preview Hunk Inline")
+      map("n", "<leader>ghp", gs.preview_hunk, "Preview Hunk Popup")
+      map("n", "<leader>ghi", gs.preview_hunk_inline, "Preview Hunk Inline")
       map("n", "<leader>ghb", function() gs.blame_line({ full = true }) end, "Blame Line")
       map("n", "<leader>ghB", function() gs.blame() end, "Blame Buffer")
       map("n", "<leader>ghd", gs.diffthis, "Diff This")
       map("n", "<leader>ghD", function() gs.diffthis("~") end, "Diff This ~")
+
+      map("n", "<leader>ghq", gs.setqflist)
+      map("n", "<leader>ghQ", function() gs.setqflist("all") end)
+
+      -- Toggles
+      map("n", "<leader>tb", gs.toggle_current_line_blame)
+      map("n", "<leader>tw", gs.toggle_word_diff)
 
       -- Text object (Allows you to use operations on hunks like 'vih' or 'dah')
       map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
