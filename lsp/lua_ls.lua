@@ -1,18 +1,15 @@
-local capabilities = require('lsp.capabilities')
-
-vim.lsp.config('lua_ls', {
+vim.lsp.config("lua_ls", {
   settings = {
     Lua = {
       runtime = {
-        version = 'LuaJIT',
+        version = "LuaJIT",
       },
       diagnostics = {
         globals = {
-          'vim',
-          'require',
+          "vim",
+          "require",
         },
       },
     },
   },
-  capabilities = capabilities,
 })
