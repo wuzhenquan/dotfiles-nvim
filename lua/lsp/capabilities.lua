@@ -7,4 +7,7 @@ base.textDocument.foldingRange = {
   lineFoldingOnly = true,
 }
 
-return base
+-- the final capabilities table
+local capabilities = require("blink.cmp").get_lsp_capabilities(base)
+
+return capabilities
