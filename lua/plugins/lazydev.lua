@@ -4,7 +4,8 @@ return {
     ft = "lua", -- only load when editing Lua files
     opts = {
       library = {
-        -- optional extra libraries; can be empty at first
+        -- Tell the language server to load snacks types when it sees the global `Snacks`
+        { path = "snacks.nvim", words = { "Snacks" } },
       },
     },
   },
